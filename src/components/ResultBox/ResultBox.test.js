@@ -54,4 +54,20 @@ describe('Component ResultBox', () => {
       cleanup();
     }
   });
+
+  it('should render error when input is a negative number', () => {
+    const testCases = [
+      { from: 'PLN', to: 'USD', amount: '-1' },
+      { from: 'PLN', to: 'USD', amount: '-76' },
+      { from: 'USD', to: 'PLN', amount: '-104' },
+      { from: 'USD', to: 'PLN', amount: '-65' },
+    ];
+
+    for(const testObj of testCases){
+      render(<ResultBox from={testObj.from} to={testObj.to} amount={parseInt(testObj.amount)} />);
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent('Wrong value');
+      cleanup();
+    }
+  });
 });
